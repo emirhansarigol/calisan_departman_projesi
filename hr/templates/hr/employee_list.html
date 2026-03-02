@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Personel Listesi</title>
+</head>
+<body>
+    <h1>Personel Yönetimi</h1>
+
+    <fieldset>
+        <legend>Yeni Personel Ekle</legend>
+        <form method="POST" action="">
+            {% csrf_token %}  <label>İsim Soyisim:</label>
+            <input type="text" name="form_isim" required>
+            <br><br>
+            <label>Maaş:</label>
+            <input type="number" name="form_maas" required>
+            <br><br>
+            <button type="submit">Kaydet</button>
+        </form>
+    </fieldset>
+
+    <hr>
+
+    <h2>Mevcut Personeller</h2>
+    <ul>
+        {% for personel in personeller %}
+            <li>
+                <strong>{{ personel.full_name }}</strong> - Maaş: {{ personel.salary }} ₺ 
+                (Email: {{ personel.email|default:"Yok" }})
+            </li>
+        {% empty %}
+            <li>Henüz hiç personel eklenmemiş.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
